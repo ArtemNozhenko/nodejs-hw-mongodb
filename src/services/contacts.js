@@ -1,8 +1,44 @@
 import { ContactsCollection } from '../db/Contact.js';
 
-export const getAllContacts = async () => {
-  const contacts = await ContactsCollection.find();
-  return contacts;
+export const getAllContacts = async ({
+  page,
+  perPage,
+  sortBy,
+  sortOrder,
+  filter,
+}) => {
+  const limit = perPage;
+  const skip = page > 0 ? (page - 1) * perPage : 0;
+
+  const contactQuery = ContactsCollection.find();
+
+  if (filter.contactType) {
+    contactQuery.where('contactType').equals(filter.contactType);
+  }
+  if (filter.isFavourite) {
+    contactQuery.where('isFavourite').equals(filter.isFavourite);
+  }
+
+  const [contacts, count] = await Promise.all([
+    contactQuery
+      .sort({ [sortBy]: sortOrder })
+      .limit(limit)
+      .skip(skip)
+      .exec(),
+    ContactsCollection.find().merge(contactQuery).countDocuments(),
+  ]);
+
+  const totalPages = Math.ceil(count / perPage);
+
+  return {
+    contacts,
+    page,
+    perPage,
+    totalPages,
+    totalItem: count,
+    hasPreviousPage: Boolean(totalPages - page),
+    hasNextPage: page > 1,
+  };
 };
 
 export const getContactById = async (contactId) => {
