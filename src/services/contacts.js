@@ -1,11 +1,11 @@
 import { ContactsCollection } from '../db/Contact.js';
 
 export const getAllContacts = async ({
-  page,
-  perPage,
-  sortBy,
-  sortOrder,
-  filter,
+  page = 1,
+  perPage = 10,
+  sortBy = 'name',
+  sortOrder = 'asc',
+  filter = {},
 }) => {
   const limit = perPage;
   const skip = page > 0 ? (page - 1) * perPage : 0;
@@ -25,7 +25,7 @@ export const getAllContacts = async ({
       .limit(limit)
       .skip(skip)
       .exec(),
-    ContactsCollection.find().merge(contactQuery).countDocuments(),
+    ContactsCollection.countDocuments(contactQuery.getFilter()),
   ]);
 
   const totalPages = Math.ceil(count / perPage);
