@@ -36,8 +36,8 @@ export const getAllContacts = async ({
     perPage,
     totalPages,
     totalItem: count,
-    hasPreviousPage: Boolean(totalPages - page),
-    hasNextPage: page > 1,
+    hasNextPage: Boolean(totalPages - page),
+    hasPreviousPage: page > 1,
   };
 };
 
