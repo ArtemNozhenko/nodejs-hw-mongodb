@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import {
   registerUser,
   loginUser,
@@ -73,13 +74,19 @@ export const refreshUserController = async (req, res) => {
   });
 };
 
-export const requestResetEmailController = async (req, res) => {
-  await requestResetEmail(req.body.email);
-  res.send({
-    status: 200,
-    message: 'Reset password email was successfully sent!',
-    data: {},
-  });
+export const requestResetEmailController = async (req, res, next) => {
+  try {
+    await requestResetEmail(req.body.email);
+    res.send({
+      status: 200,
+      message: 'Reset password email was successfully sent!',
+      data: {},
+    });
+  } catch {
+    next(
+      createHttpError(500, 'Failed to send the email, please try again later.'),
+    );
+  }
 };
 
 export const resetPasswordController = async (req, res) => {
