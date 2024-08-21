@@ -13,7 +13,7 @@ tags:
     description: Auth operations.
 servers:
   - url: http://localhost:3000
-  - url: https://example.com/api/v1
+  - url: https://hw2-mongodb-8bfx.onrender.com
 paths:
   /contacts:
     get:
