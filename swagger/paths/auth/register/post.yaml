@@ -1,0 +1,76 @@
+tags:
+  - Auth
+summary: Register user
+operationId: createUser
+description: Creates a new user in the system.
+security: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: 'User name'
+            type: string
+            example: Artem
+          email:
+            description: 'User email'
+            type: string
+            format: email
+            example: artem@mail.com
+          password:
+            description: 'User password'
+            type: string
+            example: 12345678
+responses:
+  '201':
+    description: Successfully registered a user
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered a user!
+            data:
+              type: object
+              properties:
+                id:
+                  type: string
+                  example: 66bbe94665f3decb86837404
+                name:
+                  type: string
+                  example: Artem
+                email:
+                  type: string
+                  format: email
+                  example: artem@mail.com
+  '409':
+    description: Email in use
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 409
+            message:
+              type: string
+              example: Email in use
+            data:
+              type: object
+              properties:
+                message:
+                  type: string
+                  example: 'Email in use'

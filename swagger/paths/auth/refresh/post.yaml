@@ -1,0 +1,71 @@
+tags:
+  - Auth
+summary: Refresh user's session
+operationId: refreshUserToken
+description: 'Refresh the session of a user and provide new tokens'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - refreshToken
+        properties:
+          refreshToken:
+            description: 'The refresh token issued during login or token refresh'
+            type: string
+            example: 'yGJvk7qBLDi6VY3iRuPsxUpiyea/DdRNAYsFKWdR'
+responses:
+  '200':
+    description: Successfully refreshed the session
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully refreshed the session!'
+            data:
+              type: object
+              properties:
+                accessToken:
+                  type: string
+                  description: 'New JWT token'
+                  example: 'yGJvk7qBLDi6VY3iRuPsxUpiyea/DdRNAYsFKWdR'
+                refreshToken:
+                  type: string
+                  description: 'New refresh token'
+                  example: 'yGJvk7qBLDi6VY3iRuPsxUpiyea/DdRNAYsFKWdR'
+  '404':
+    description: 'Session not found'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 404
+            message:
+              type: string
+              example: 'Session not found'
+  '401':
+    description: 'Refresh token is expired or invalid'
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 401
+            message:
+              type: string
+              example: 'Refresh token is expired or invalid'

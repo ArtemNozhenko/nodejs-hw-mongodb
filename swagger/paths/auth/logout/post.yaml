@@ -1,0 +1,41 @@
+tags:
+  - Auth
+summary: Logout user
+operationId: LogoutUser
+description: User logout.
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            description: 'User email'
+            type: string
+            format: email
+            example: artem@mail.com
+          password:
+            description: 'User password'
+            type: string
+            example: 12345678
+responses:
+  '204':
+    description: User logout
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+          properties:
+            status:
+              type: integer
+              example: 204
+  '404':
+    $ref: ../../../components/responses/404.yaml
