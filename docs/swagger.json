@@ -81,7 +81,7 @@
           },
           {
             "in": "query",
-            "name": "isFavorite",
+            "name": "isFavourite",
             "schema": {
               "type": "boolean",
               "example": true
@@ -215,7 +215,7 @@
                     "type": "string",
                     "example": "artem@mail.com"
                   },
-                  "isFavorite": {
+                  "isFavourite": {
                     "description": "Favorite contact",
                     "type": "boolean",
                     "example": true
@@ -381,7 +381,7 @@
                     "type": "string",
                     "example": "artem@mail.com"
                   },
-                  "isFavorite": {
+                  "isFavourite": {
                     "description": "Favorite contact",
                     "type": "boolean",
                     "example": true
@@ -1063,7 +1063,7 @@
             "type": "string",
             "example": "artem@mail.com"
           },
-          "isFavorite": {
+          "isFavourite": {
             "description": "Favorite contact",
             "type": "boolean",
             "example": true
