@@ -13,7 +13,6 @@ requestBody:
         required:
           - name
           - phoneNumber
-          - isFavourite
           - contactType
         properties:
           name:
@@ -31,7 +30,7 @@ requestBody:
           isFavourite:
             description: 'Favorite contact'
             type: boolean
-            example: true
+            example: false
           contactType:
             description: 'Contact type'
             type: string
